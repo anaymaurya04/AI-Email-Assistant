@@ -1,15 +1,22 @@
 package com.email.assistant.Controller;
 
 import com.email.assistant.EmailRequest;
+import com.email.assistant.Service.EmailGenService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/email")
+@AllArgsConstructor
 public class EmailGenController {
+    private final EmailGenService emailGenService;
+    @PostMapping("/generate")
     public ResponseEntity<String> generateEmail(@RequestBody EmailRequest emailRequest){
-        return ResponseEntity.ok("");
+        String response = emailGenService.generateEmailReply(emailRequest);
+        return ResponseEntity.ok(response);
     }
 }
