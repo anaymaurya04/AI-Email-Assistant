@@ -46,21 +46,7 @@ email-assistant/
 mvn spring-boot:run
 The app starts at `http://localhost:8080`.
 
-## API
-`POST /api/email/generate` — `Content-Type: application/json`
 
-```json
-{ "emailContent": "Hello, we are reaching out regarding the JIIT College review", "tone": "friendly" }
-Returns the generated reply as text/plain.
-Test it:
-curl -X POST http://localhost:8080/api/email/generate -H "Content-Type: application/json" -d "{\"emailContent\":\"Hello, we are reaching out regarding the JIIT College review\",\"tone\":\"friendly\"}"
-Chrome Extension
-1. Open chrome://extensions → enable Developer mode.
-2. Load unpacked → select the extension/ folder.
-3. Open Gmail → reply to an email.
-4. Click Generate reply in the compose window, pick a tone.
-5. Review, edit, send.
-Troubleshooting
 500 Internal Server Error — Gemini returned an error, usually 503 "model busy". Wait a few seconds and retry, or check GEMINI_URL for a stray =. The app now returns the real Gemini error message instead of a raw 500.
 Reply has no spaces between words — caused by unstable model aliases like gemini-flash-latest. Pin a stable model (gemini-3.6-flash) in GEMINI_URL.
 Button doesn't appear in Gmail — Gmail's DOM changes over time. Open the browser console for errors and re-load the extension.
