@@ -19,7 +19,12 @@ public class EmailGenService {
 
     private final WebClient webClient = WebClient.builder().build();
 
-    public String generateEmailReply(EmailRequest emailRequest) {
+    public String generateEmailReply(EmailRequest emailRequest, String perRequestKey) {
+        String apiKey = (perRequestKey !=null && !perRequestKey.isBlank())
+                ?perRequestKey:geminiApiKey;
+        if(apiKey == null || apiKey.isBlank()){
+            return "Error, no gemini API key set";
+        }
         String prompt = buildPrompt(emailRequest);
         Map<String, Object> requestBody = Map.of(
                 "contents", new Object[]{
@@ -29,7 +34,7 @@ public class EmailGenService {
                 }
         );
         String response = webClient.post()
-                .uri(geminiApiUrl + geminiApiKey)
+                .uri(geminiApiUrl + apiKey)
                 .header("Content-Type", "application/json")
                 .bodyValue(requestBody)
                 .retrieve()
