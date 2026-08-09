@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Email Assistant",
+  "version": "1.0.0",
+  "description": "Auto-reply to Gmail using Gemini via your Spring Boot backend.",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "http://localhost:8080/*",
+    "http://127.0.0.1:8080/*"
+  ],
+  "background": { "service_worker": "background/background.js" },
+  "action": { "default_popup": "popup.html" },
+  "content_scripts": [
+    {
+      "matches": ["https://mail.google.com/*"],
+      "js": ["content/content.js"],
+      "all_frames": true
+    }
+  ],
+  "icons": { "16": "icons/icon16.png", "48": "icons/icon48.png", "128": "icons/icon128.png" }
+}
